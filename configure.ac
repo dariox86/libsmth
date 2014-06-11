@@ -1,5 +1,6 @@
 # Fire up the whole enchilada
 AC_INIT([libsmth], [0.0.3])
+AM_PROG_AR
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 LT_INIT
 
