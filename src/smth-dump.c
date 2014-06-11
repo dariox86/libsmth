@@ -55,14 +55,15 @@ void SMTH_dumpmanifest(Manifest *m, FILE *output)
 	fprintf(output, " +-DVR window length: %.3Lfs\n",
 		m->dvrwindow / (long double) m->tick);
 
-	if (m->armor->content)
-	{	fprintf(output, " +-armor\n");
-		fprintf(output, " |  +-id: ");
-		fwrite(m->armorID, sizeof(byte_t), sizeof(uuid_t), stdout);
-		fprintf(output, "\n |  `-payload: ");
-		fwrite(m->armor->content, sizeof(byte_t), m->armor->length, output);
-		fprintf(output, "\n");
-	}
+	if (m->armor)
+		if (m->armor->content)
+		{	fprintf(output, " +-armor\n");
+			fprintf(output, " |  +-id: ");
+			fwrite(m->armorID, sizeof(byte_t), sizeof(uuid_t), stdout);
+			fprintf(output, "\n |  `-payload: ");
+			fwrite(m->armor->content, sizeof(byte_t), m->armor->length, output);
+			fprintf(output, "\n");
+		}
 
 	fprintf(output, " `-streams\n");
 	if (m->streams)
