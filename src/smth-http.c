@@ -148,6 +148,8 @@ FILE* SMTH_fetchmanifest(const char *url, const char *params)
 	curl_easy_setopt(handle, CURLOPT_VERBOSE, 0L);
 	/* with old versions of libcurl: no progress meter */
 	curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 1L);
+	/* Follow URL redirection */
+	curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L);
 
 	if (curl_easy_perform(handle))
 	{
@@ -331,6 +333,8 @@ static error_t reinithandle(Fetcher *f)
 	curl_easy_setopt(handle, CURLOPT_VERBOSE, 0L);
 	/* with old versions of libcurl: no progress meter */
 	curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 1L);
+	/* Follow URL redirection */
+	curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L);
 
 	if (curl_multi_add_handle(f->handle, handle))
 	{   curl_easy_cleanup(handle);
