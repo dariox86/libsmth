@@ -73,7 +73,6 @@ error_t SMTH_parsemanifest(Manifest *m, FILE *stream)
 {
 	chardata chunk[MANIFEST_XML_BUFFER_SIZE];
 	ManifestBox root;
-	error_t result;
 
 	memset(&root, 0x00, sizeof(ManifestBox)); /* reset memory */
 	root.m = m;
@@ -100,10 +99,13 @@ error_t SMTH_parsemanifest(Manifest *m, FILE *stream)
 		done = feof(stream);
 
 		if (ferror(stdin))
-		{   result = MANIFEST_IO_ERROR;
+		{   root.state = MANIFEST_IO_ERROR;
 			done = true;
 		}
-		(void) XML_Parse(parser, chunk, len, done);
+		if (!XML_Parse(parser, chunk, len, done))
+		{   root.state = MANIFEST_PARSE_ERROR;
+			done = true;
+		}
 	}
 
 	XML_ParserFree(parser);
