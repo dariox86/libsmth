@@ -87,8 +87,8 @@ char* SMTH_fetch(const char *url, Stream *stream, bitrate_t maxbitrate)
 
 				curl_easy_getinfo(msg->easy_handle, CURLINFO_SPEED_DOWNLOAD, &time);
 				f.downloadtime = (bitrate_t)(sizeof (byte_t) * time);
-				curl_easy_getinfo(msg->easy_handle, CURLOPT_PRIVATE, &file);
-/*				fclose(file); //XXX*/
+				curl_easy_getinfo(msg->easy_handle, CURLINFO_PRIVATE, &file);
+				fclose(file);
 
 				curl_multi_remove_handle(f.handle, msg->easy_handle);
 				curl_easy_cleanup(msg->easy_handle);
