@@ -355,9 +355,9 @@ static char *compileurl(Fetcher *f, char *buffer)
 	char temp[FETCHER_MAX_URL_LENGTH]; /* FIXME find something less painful */
 
 	replace(temp, FETCHER_MAX_URL_LENGTH, f->urlmodel,
-		FETCHER_START_TIME_PLACEHOLDER, "%lu", f->nextchunk->time);
+		FETCHER_START_TIME_PLACEHOLDER, "%llu", f->nextchunk->time);
 	replace(buffer, FETCHER_MAX_URL_LENGTH, temp,
-		FETCHER_BITRATE_PLACEHOLDER, "%u", getbitrate(f));
+		FETCHER_BITRATE_PLACEHOLDER, "%llu", getbitrate(f));
 
 	return buffer;
 }
@@ -419,7 +419,7 @@ static bitrate_t getbitrate(Fetcher *f)
  */
 static
 char *replace(char *buffer, size_t size, const char *source, char *search,
-	const char *format, void *replace)
+	const char *format, uint64_t replace)
 {
 	char *position;
 	char specs[FETCHER_REPLACE_FORMAT_LENGTH+1];

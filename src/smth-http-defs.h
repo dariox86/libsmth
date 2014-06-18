@@ -90,7 +90,7 @@ static bitrate_t getbitrate(Fetcher *f);
 
 static char *compileurl(Fetcher *f, char *buffer);
 static char *replace(char *buffer, size_t size, const char *source,
-	char *search, const char *format, void *replace);
+	char *search, const char *format, uint64_t replace);
 
 #endif /* __SMTH_HTTP_DEFS__ */
 
