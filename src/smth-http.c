@@ -357,7 +357,7 @@ static char *compileurl(Fetcher *f, char *buffer)
 	replace(temp, FETCHER_MAX_URL_LENGTH, f->urlmodel,
 		FETCHER_START_TIME_PLACEHOLDER, "%llu", f->nextchunk->time);
 	replace(buffer, FETCHER_MAX_URL_LENGTH, temp,
-		FETCHER_BITRATE_PLACEHOLDER, "%llu", getbitrate(f));
+		FETCHER_BITRATE_PLACEHOLDER, "%llu", getbitrate(f)); //%llu is a workaround
 
 	return buffer;
 }
